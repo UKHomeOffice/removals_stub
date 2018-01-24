@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://codepen.io/edwardhorsford/pen/BLLAOQ.css">
+	<style>
+		html, body {
+			font-family: sans-serif;
+			max-width: 960px;
+		}
+	</style>
+
+	<title>Event sender</title>
+	<script src="scripts.js"></script>
+	<script type="application/json" src="event.json" id="event-data"></script>
+</head>
+<body>
+	<div id="content">
+	<div class="grid-row">
+		<div class="column-two-thirds">
+			<h1>Event sender</h1>
+		</div>
+	</div>
+	<div class="grid-row">
+		<div class="column-two-thirds">
+			<form>
+				<div class="form-group">
+					<label class="form-label" for="event-type">Event type</label>
+					<select class="form-control" id="event-type" name="event-type"></select>
+				</div>
+				<div id="keys"></div>
+				<input type="submit" class="button">
+			</form>
+		</div>
+		<div class="column-one-third">
+			<h2>Preview</h2>
+			<pre id="preview" class="code">{}</pre>
+		</div>
+	</div>
+	</div>
+</body>
+</html>

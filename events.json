@@ -1,0 +1,49 @@
+{
+	"schemaHash": "4247654a8e359d473746ce67dd711199212b122e",
+	"events": {
+		"out commission": [
+			"timestamp",
+			"centre",
+			"bed_ref",
+			"reason",
+			"gender"
+		],
+		"in commission": [
+			"timestamp",
+			"centre",
+			"bed_ref"
+		],
+		"check in": [
+			"cid_id",
+			"person_id",
+			"gender",
+			"centre",
+			"nationality"
+		],
+		"update individual": [
+			"cid_id",
+			"person_id",
+			"gender",
+			"timestamp",
+			"centre",
+			"nationality"
+		],
+		"check out": [
+			"person_id",
+			"timestamp",
+			"centre"
+		],
+		"reinstatement": [
+			"person_id",
+			"timestamp",
+			"centre"
+		],
+		"inter site transfer": [
+			"person_id",
+			"timestamp",
+			"centre",
+			"centre_to",
+			"reason"
+		]
+	}
+}
