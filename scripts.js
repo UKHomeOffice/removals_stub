@@ -23,7 +23,9 @@ window.onload = function () {
 				humanReadable = humanReadable.replace('cid', 'CID')
 				humanReadable = humanReadable.replace('id', 'identifier')
 				humanReadable = humanReadable.charAt(0).toUpperCase() + humanReadable.slice(1)
-				placeholder.appendChild(createField(humanReadable, keys[j], 'text'))
+				var fieldType = 'text'
+				if (keys[j] === 'timestamp') fieldType = 'datetime-local'
+				placeholder.appendChild(createField(humanReadable, keys[j], fieldType))
 			}
 			updatePreview()
 		})
@@ -60,7 +62,7 @@ var createField = function (caption, id, type) {
 	var input = document.createElement('input')
 	input.setAttribute('type', type ? type : 'text')
 	input.id = id
-	input.className = 'form-control'
+	input.className = 'form-control form-control-3-4'
 	input.addEventListener('keyup', updatePreview)
 	div.appendChild(input)
 
@@ -75,9 +77,46 @@ var updatePreview = function () {
 	for (var i = 0; i < inputs.length; i++) {
 		if (inputs[i].value !== '') {
 			payload[inputs[i].id] = inputs[i].value
+
+			// force UTC:
+			if (inputs[i].type === 'datetime-local') {
+				payload[inputs[i].id] = payload[inputs[i].id] + ':00Z'
+			}
+
 		}
 	}
 
 	document.getElementById('preview').innerHTML = JSON.stringify(payload, null, 4)
+	document.getElementById('preview').className = 'code'
+
+	var schemaErrors = getSchemaErrors(payload, function (errors) {
+		var errorBox = document.getElementById('errors')
+		if (errors) {
+			document.getElementById('preview').className += ' error'
+			var errorsArray = []
+			for (var j = 0; j < errors.length; j++) {
+				errorsArray.push(JSON.stringify(errors[i]))
+				var msg = errors[i].message
+				msg = msg.replace(errors[i].keyword, '<strong>' + errors[i].keyword + '</strong>')
+				if (!errorsArray.includes(msg)) {
+					errorsArray.push(msg)
+				}
+			}
+			errorBox.innerHTML = '<p><h2 class="heading-small">Schema validation problems</h2><ul class="error"><li>' + errorsArray.join('</li><li>') + '</ul></details></p>'
+		} else {
+			errorBox.innerHTML = ''
+		}
+	})
 	return payload
+}
+
+var getSchemaErrors = function (data, cb) {
+	getJSON('https://raw.githubusercontent.com/UKHomeOffice/removals_schema/master/event.json', function (e, jsonSchema) {
+		var ajv = new Ajv()
+		var isValid = ajv.validate(jsonSchema, data)
+		if (!isValid) {
+			return cb(ajv.errors)
+		}
+		return cb(isValid)
+	})
 }
