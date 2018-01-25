@@ -89,22 +89,23 @@ var updatePreview = function () {
 	document.getElementById('preview').innerHTML = JSON.stringify(payload, null, 4)
 	document.getElementById('preview').className = 'code'
 
-	var schemaErrors = getSchemaErrors(payload, function (errors) {
+	var schemaErrors = getSchemaErrors(payload, function (error) {
+		console.log(error)
 		var errorBox = document.getElementById('errors')
-		if (errors) {
-			document.getElementById('preview').className += ' error'
-			var errorsArray = []
-			for (var j = 0; j < errors.length; j++) {
-				errorsArray.push(JSON.stringify(errors[i]))
-				var msg = errors[i].message
-				msg = msg.replace(errors[i].keyword, '<strong>' + errors[i].keyword + '</strong>')
-				if (!errorsArray.includes(msg)) {
-					errorsArray.push(msg)
+		if (!error.valid) {
+			var headline = error.toString()
+			var subErrs = []
+			if (error.error.subErrors.length !== 0) {
+				for (var j = 0 ; j < error.error.subErrors.length; j++) {
+					subErrs.push('<li>'+error.error.subErrors[j].message+'</li>')
 				}
 			}
-			errorBox.innerHTML = '<p><h2 class="heading-small">Schema validation problems</h2><ul class="error"><li>' + errorsArray.join('</li><li>') + '</ul></details></p>'
+			errorBox.className = 'error-summary'
+			errorBox.innerHTML = '<h2 class="heading-small error-summary-heading">'+headline+'</h2><details open><summary>Sub errors</summary><ul class="error-summary-list">' + subErrs.join('') + '</ul>'
+			errorBox.innerHTML = errorBox.innerHTML += '</details><details><summary>Full error report</summary><pre class="code">'+JSON.stringify(error, null, 4)+'</details></p>'
 		} else {
-			errorBox.innerHTML = ''
+			errorBox.className = 'valid'
+			errorBox.innerHTML = 'Passes validation'
 		}
 	})
 	return payload
@@ -112,11 +113,7 @@ var updatePreview = function () {
 
 var getSchemaErrors = function (data, cb) {
 	getJSON('https://raw.githubusercontent.com/UKHomeOffice/removals_schema/master/event.json', function (e, jsonSchema) {
-		var ajv = new Ajv()
-		var isValid = ajv.validate(jsonSchema, data)
-		if (!isValid) {
-			return cb(ajv.errors)
-		}
-		return cb(isValid)
+		var result = tv4.validateResult(data, jsonSchema)
+		return cb(result)
 	})
 }
