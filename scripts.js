@@ -24,7 +24,9 @@ window.onload = function () {
 				humanReadable = humanReadable.replace('id', 'identifier')
 				humanReadable = humanReadable.charAt(0).toUpperCase() + humanReadable.slice(1)
 				var fieldType = 'text'
-				if (keys[j] === 'timestamp') fieldType = 'datetime-local'
+				if (data.fields[keys[j]]) {
+					fieldType = data.fields[keys[j]]
+				}
 				placeholder.appendChild(createField(humanReadable, keys[j], fieldType))
 			}
 			updatePreview()
@@ -81,6 +83,8 @@ var updatePreview = function () {
 			// force UTC:
 			if (inputs[i].type === 'datetime-local') {
 				payload[inputs[i].id] = payload[inputs[i].id] + ':00Z'
+			} else if (inputs[i].type === 'number') {
+				payload[inputs[i].id] = parseInt(payload[inputs[i].id])
 			}
 
 		}
@@ -101,7 +105,7 @@ var updatePreview = function () {
 				}
 			}
 			errorBox.className = 'error-summary'
-			errorBox.innerHTML = '<h2 class="heading-small error-summary-heading">'+headline+'</h2><details open><summary>Sub errors</summary><ul class="error-summary-list">' + subErrs.join('') + '</ul>'
+			errorBox.innerHTML = '<h2 class="heading-small error-summary-heading">'+headline+'</h2><details><summary>Sub errors</summary><ul class="error-summary-list">' + subErrs.join('') + '</ul>'
 			errorBox.innerHTML = errorBox.innerHTML += '</details><details><summary>Full error report</summary><pre class="code">'+JSON.stringify(error, null, 4)+'</details></p>'
 		} else {
 			errorBox.className = 'valid'

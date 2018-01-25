@@ -1,5 +1,16 @@
 {
 	"schemaHash": "4247654a8e359d473746ce67dd711199212b122e",
+	"fields": {
+		"timestamp": "datetime-local",
+		"centre": "text",
+		"bed_ref": "text",
+		"reason": "text",
+		"gender": "text",
+		"nationality": "text",
+		"centre_to": "text",
+		"cid_id": "number",
+		"person_id": "number"
+	},
 	"events": {
 		"out commission": [
 			"timestamp",
