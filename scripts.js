@@ -1,12 +1,15 @@
 window.onload = function () {
+  document.getElementById('send-to-localhost').addEventListener('click', function (e) {
+	  e.disabled = true
+	  submitPayload('http://localhost:8080/irc_entry/event', updatePreview(), function () {
+	  	e.disabled = false
+	  })
+  })
   getJSON('events.json', function (err, data) {
     if (err) return console.error('Cannot get events data!')
-    console.log(data)
     const events = Object.keys(data.events)
     const eventDropdown = document.getElementById('event-type')
-    console.log('aaa', events)
     for (var i = 0; i < events.length; i++) {
-      console.log('bbb')
       var select = document.createElement('option')
       select.className = 'form-control'
       select.innerHTML = events[i]
@@ -92,7 +95,6 @@ var updatePreview = function () {
   document.getElementById('preview').className = 'code'
 
   getSchemaErrors(payload, function (error) {
-    console.log(error)
     var errorBox = document.getElementById('errors')
     if (!error.valid) {
       var headline = error.toString()
@@ -119,3 +121,15 @@ var getSchemaErrors = function (data, cb) {
     return cb(result)
   })
 }
+
+var submitPayload = function (destination, payload, cb) {
+	console.log('PAYLOAD', payload)
+
+	var xhr = new XMLHttpRequest()
+	xhr.open('POST', destination, 'application/json')
+	xhr.send(JSON.stringify(payload))
+	xhr.onloadend = function () {
+		cb()
+	}
+}
+
