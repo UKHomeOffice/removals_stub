@@ -10,6 +10,7 @@
 		}
 		h2 { margin-top: 1em; }
 		.valid { background-color: #28a197; display: inline-block; color: white; padding: 0.5em; font-size: 1.5em; }
+		.grid-row { margin-bottom: 1em; }
 	</style>
 
 	<title>Event validator</title>
@@ -28,10 +29,9 @@
 				<form>
 					<div class="form-group">
 						<label class="form-label" for="event-type">Event type</label>
-						<select class="form-control" id="event-type" name="event-type"></select>
+						<select class="form-control form-control-3-4" id="event-type" name="event-type"></select>
 					</div>
 					<div id="keys"></div>
-					<!-- <input type="submit" class="button"> -->
 				</form>
 			</div>
 			<div class="column-two-thirds">
@@ -42,6 +42,11 @@
 					<div class="column-full">
 						<h2 class="heading-small">Preview</h2>
 						<pre id="preview" class="code">{}</pre>
+					</div>
+				</div>
+				<div class="grid-row">
+					<div class="column-full">
+						<button class="button">Send to localhost</button>
 					</div>
 				</div>
 			</div>
