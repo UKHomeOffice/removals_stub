@@ -1,9 +1,9 @@
 window.onload = function () {
   document.getElementById('send-to-localhost').addEventListener('click', function (e) {
-	  e.disabled = true
-	  submitPayload('http://localhost:8080/irc_entry/event', updatePreview(), function () {
-	  	e.disabled = false
-	  })
+    e.disabled = true
+    submitPayload('http://localhost:8080/irc_entry/event', updatePreview(), function () {
+      e.disabled = false
+    })
   })
   getJSON('events.json', function (err, data) {
     if (err) return console.error('Cannot get events data!')
@@ -123,13 +123,10 @@ var getSchemaErrors = function (data, cb) {
 }
 
 var submitPayload = function (destination, payload, cb) {
-	console.log('PAYLOAD', payload)
-
-	var xhr = new XMLHttpRequest()
-	xhr.open('POST', destination, 'application/json')
-	xhr.send(JSON.stringify(payload))
-	xhr.onloadend = function () {
-		cb()
-	}
+  var xhr = new XMLHttpRequest()
+  xhr.open('POST', destination, 'application/json')
+  xhr.send(JSON.stringify(payload))
+  xhr.onloadend = function () {
+    cb()
+  }
 }
-
