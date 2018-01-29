@@ -13,17 +13,17 @@ window.onload = function () {
     placeholder.innerHTML = '' // wipe previous for now
 
     for (var j = 0; j < heartbeat.length; j++) {
-		var humanReadable = heartbeat[j].replace('_', ' ')
-		console.log(heartbeat)
-		humanReadable = humanReadable.charAt(0).toUpperCase() + humanReadable.slice(1)
-		var fieldType = 'text'
-		if (data.fields[heartbeat[j]]) {
-		  fieldType = data.fields[heartbeat[j]]
-		}
-		placeholder.appendChild(createField(humanReadable, heartbeat[j], fieldType))
-	  }
-	  updatePreview()
-	})
+      var humanReadable = heartbeat[j].replace('_', ' ')
+      console.log(heartbeat)
+      humanReadable = humanReadable.charAt(0).toUpperCase() + humanReadable.slice(1)
+      var fieldType = 'text'
+      if (data.fields[heartbeat[j]]) {
+        fieldType = data.fields[heartbeat[j]]
+      }
+      placeholder.appendChild(createField(humanReadable, heartbeat[j], fieldType))
+    }
+    updatePreview()
+  })
 }
 
 var getJSON = function (url, callback) {
@@ -86,12 +86,12 @@ var updatePreview = function () {
     if (!error.valid) {
       var headline = error.toString()
       var subErrs = []
-	  var errsText = '<span class="text-secondary">(No sub-errors)</span>'
+      var errsText = '<span class="text-secondary">(No sub-errors)</span>'
       if (error.error.subErrors) {
         for (var j = 0; j < error.error.subErrors.length; j++) {
           subErrs.push('<li>' + error.error.subErrors[j].message + '</li>')
         }
-		var errsText = '<details><summary>Sub-errors</summary><ul class="error-summary-list">' + subErrs.join('') + '</ul></details>'
+        errsText = '<details><summary>Sub-errors</summary><ul class="error-summary-list">' + subErrs.join('') + '</ul></details>'
       }
       errorBox.className = 'error-summary'
       errorBox.innerHTML = '<h2 class="heading-small error-summary-heading">' + headline + '</h2>' + errsText
