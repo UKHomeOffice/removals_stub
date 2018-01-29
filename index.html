@@ -11,6 +11,9 @@
 		h2 { margin-top: 1em; }
 		.valid { background-color: #28a197; display: inline-block; color: white; padding: 0.5em; font-size: 1.5em; }
 		.grid-row { margin-bottom: 1em; }
+		.http-verb { background-color: #2e358b; display: inline-block; margin-right: 8px; padding: 2px 5px; color: white; line-height: 1.25; }
+		.endpoint { margin-bottom: 0.2em; }
+
 	</style>
 
 	<title>Event validator</title>
@@ -41,7 +44,11 @@
 				<div class="grid-row">
 					<div class="column-full">
 						<h2 class="heading-small">Preview</h2>
-						<pre id="preview" class="code">{}</pre>
+						<div class="endpoint">
+							<span class="http-verb">POST</span>
+							/irc_entry/event
+						</div>
+						<pre id="preview" class="code"></pre>
 					</div>
 				</div>
 				<div class="grid-row">
