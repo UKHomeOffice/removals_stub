@@ -16,7 +16,7 @@
 
 	</style>
 
-	<title>Schema validator</title>
+	<title>Heartbeat validator</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tv4/1.3.0/tv4.min.js"></script>
 	<script src="scripts.js"></script>
 </head>
@@ -24,16 +24,35 @@
 	<div id="content">
 		<div class="grid-row">
 			<div class="column-two-thirds">
-				<h1>Schema validator</h1>
-				<h2 class="heading-medium">IRC endpoints</h2>
-				<ul class="list list-bullet font-small">
-					<li><a href="/event">Detainee and bed events</a></li>
-					<li><a href="/heartbeat">Heartbeats</a></li>
-				</ul>
-				<p class="panel panel-width-narrow">
-					This tool and the JSON Schema on GitHub may be inconsistent.<br>
-					If so, the schema on GitHub takes precedence.
-				</p>
+				<h1>Heartbeat validator</h1>
+			</div>
+		</div>
+		<div class="grid-row">
+			<div class="column-one-third">
+				<form>
+					<div id="keys">
+					</div>
+				</form>
+			</div>
+			<div class="column-two-thirds">
+				<div class="grid-row">
+				<div class="column-full" id="errors"></div>
+				</div>
+				<div class="grid-row">
+					<div class="column-full">
+						<h2 class="heading-small">Preview</h2>
+						<div class="endpoint">
+							<span class="http-verb">POST</span>
+							/irc_entry/heartbeat
+						</div>
+						<pre id="preview" class="code"></pre>
+					</div>
+				</div>
+				<div class="grid-row">
+					<div class="column-full">
+						<button id="send-to-localhost" type="button" class="button">Send to localhost</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

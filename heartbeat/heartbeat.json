@@ -1,0 +1,16 @@
+{
+	"fields": {
+		"centre": "text",
+		"male_occupied": "number",
+		"female_occupied": "number",
+		"male_outofcommission": "number",
+		"female_outofcommission": "number"
+	},
+	"heartbeat": [
+		"centre",
+		"male_occupied",
+		"male_outofcommission",
+		"female_occupied",
+		"female_outofcommission"
+	]
+}

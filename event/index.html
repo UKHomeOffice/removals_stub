@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://codepen.io/edwardhorsford/pen/BLLAOQ.css">
+	<style>
+		html, body {
+			font-family: sans-serif;
+			max-width: 960px;
+			min-width: 100%;
+		}
+		h2 { margin-top: 1em; }
+		.valid { background-color: #28a197; display: inline-block; color: white; padding: 0.5em; font-size: 1.5em; }
+		.grid-row { margin-bottom: 1em; }
+		.http-verb { background-color: #2e358b; display: inline-block; margin-right: 8px; padding: 2px 5px; color: white; line-height: 1.25; }
+		.endpoint { margin-bottom: 0.2em; }
+
+	</style>
+
+	<title>Event validator</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tv4/1.3.0/tv4.min.js"></script>
+	<script src="scripts.js"></script>
+</head>
+<body>
+	<div id="content">
+		<div class="grid-row">
+			<div class="column-two-thirds">
+				<h1>Event validator</h1>
+			</div>
+		</div>
+		<div class="grid-row">
+			<div class="column-one-third">
+				<form>
+					<div class="form-group">
+						<label class="form-label" for="event-type">Event type</label>
+						<select class="form-control form-control-3-4" id="event-type" name="event-type"></select>
+					</div>
+					<div id="keys"></div>
+				</form>
+			</div>
+			<div class="column-two-thirds">
+				<div class="grid-row">
+				<div class="column-full" id="errors"></div>
+				</div>
+				<div class="grid-row">
+					<div class="column-full">
+						<h2 class="heading-small">Preview</h2>
+						<div class="endpoint">
+							<span class="http-verb">POST</span>
+							/irc_entry/event
+						</div>
+						<pre id="preview" class="code"></pre>
+					</div>
+				</div>
+				<div class="grid-row">
+					<div class="column-full">
+						<button id="send-to-localhost" type="button" class="button">Send to localhost</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
