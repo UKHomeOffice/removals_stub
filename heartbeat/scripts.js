@@ -148,7 +148,7 @@ var submitPayload = function (destination, payload, cb) {
 var autoSendTick = 0
 var autoSend = function () {
   var tick = 60 - (autoSendTick++ % 60)
-  document.getElementById('autosend-label').innerHTML = 'Automatically send the heartbeat in ' + tick + ' seconds (this doesn\'t actually do anything)'
+  document.getElementById('autosend-label').innerHTML = 'Automatically send the heartbeat in ' + tick + ' seconds'
   if (tick === 60) {
     document.getElementById('send-to-dev').click()
   }
