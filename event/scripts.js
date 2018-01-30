@@ -5,6 +5,12 @@ window.onload = function () {
       e.disabled = false
     })
   })
+  document.getElementById('send-to-dev').addEventListener('click', function (e) {
+    e.disabled = true
+    submitPayload('https://api-ircbd-dev.notprod.homeoffice.gov.uk/irc_entry/event', updatePreview(), function () {
+      e.disabled = false
+    })
+  })
   getJSON('events.json', function (err, data) {
     if (err) return console.error('Cannot get events data!')
     const events = Object.keys(data.events)
@@ -77,7 +83,7 @@ var createField = function (caption, id, type) {
 var updatePreview = function () {
   var payload = {}
   payload.operation = document.getElementById('event-type').value
-  var inputs = document.getElementsByTagName('input')
+  var inputs = document.getElementById('event-payload').getElementsByTagName('input')
   for (var i = 0; i < inputs.length; i++) {
     if (inputs[i].value !== '') {
       payload[inputs[i].id] = inputs[i].value
@@ -125,6 +131,7 @@ var getSchemaErrors = function (data, cb) {
 var submitPayload = function (destination, payload, cb) {
   var xhr = new XMLHttpRequest()
   xhr.open('POST', destination, 'application/json')
+  xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
   xhr.send(JSON.stringify(payload))
   xhr.onloadend = function () {
     cb()

@@ -29,7 +29,7 @@
 		</div>
 		<div class="grid-row">
 			<div class="column-one-third">
-				<form>
+				<form id="event-payload">
 					<div class="form-group">
 						<label class="form-label" for="event-type">Event type</label>
 						<select class="form-control form-control-3-4" id="event-type" name="event-type"></select>
@@ -54,6 +54,28 @@
 				<div class="grid-row">
 					<div class="column-full">
 						<button id="send-to-localhost" type="button" class="button">Send to localhost</button>
+					</div>
+				</div>
+				<div class="grid-row">
+					<div class="column-full">
+						<details>
+							<summary>Send to test environment</summary>
+							<div class="form-group">
+								<label class="form-label" for="bearer-token">
+									Bearer token
+									<span class="form-hint">A very long string of letters and numbers from Postman</span>
+								</label>
+								<input class="form-control form-control-3-4" id="bearer-token" name="event-type" pattern="^[a-zA-Z0-9_\-\.]{1239}$" />
+							</div>
+							<p class="panel panel-border-narrow">
+								You may need to disable <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS</a> in order to use this feature.<br>
+								This is a terrible idea usually. Instructions: <a href="https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome">Chrome</a> &middot; <a href="https://stackoverflow.com/questions/17088609/disable-firefox-same-origin-policy">Firefox</a><br>
+							</p>
+							<div class="form-group">
+								<button id="send-to-dev" type="button" class="button">Send to developer environment</button>
+								<p class="text-secondary font-xsmall">only do this if you trust this website</p>
+							</div>
+						</details>
 					</div>
 				</div>
 			</div>
