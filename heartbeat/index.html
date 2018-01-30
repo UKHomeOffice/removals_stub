@@ -9,7 +9,7 @@
 			min-width: 100%;
 		}
 		h2 { margin-top: 1em; }
-		.valid { background-color: #28a197; display: inline-block; color: white; padding: 0.5em; font-size: 1.5em; }
+		.valid { background-color: #28a197; display: inline-block; color: white; padding: 0.5em; font-size: 1.5em; margin-top: 1em; }
 		.grid-row { margin-bottom: 1em; }
 		.http-verb { background-color: #2e358b; display: inline-block; margin-right: 8px; padding: 2px 5px; color: white; line-height: 1.25; }
 		.endpoint { margin-bottom: 0.2em; }
@@ -29,7 +29,7 @@
 		</div>
 		<div class="grid-row">
 			<div class="column-one-third">
-				<form>
+				<form id="payload">
 					<div id="keys">
 					</div>
 				</form>
@@ -50,7 +50,32 @@
 				</div>
 				<div class="grid-row">
 					<div class="column-full">
-						<button id="send-to-localhost" type="button" class="button">Send to localhost</button>
+						<!-- <button id="send-to-localhost" type="button" class="button">Send to localhost</button> -->
+						<details>
+							<summary>Send to test environment</summary>
+							<div class="form-group">
+								<label class="form-label" for="bearer-token">
+									Bearer token
+									<span class="font-xsmall form-hint">A very long string of letters and numbers from Postman</span>
+								</label>
+								<input class="form-control form-control-3-4" id="bearer-token" name="event-type" pattern="^[a-zA-Z0-9_\-\.]{1239}$" />
+							</div>
+							<p class="panel panel-border-narrow">
+								You may need to disable <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS</a> in order to use this feature.<br>
+								This is a terrible idea usually. Instructions: <a href="https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome">Chrome</a> &middot; <a href="https://stackoverflow.com/questions/17088609/disable-firefox-same-origin-policy">Firefox</a><br>
+							</p>
+							<div class="form-checkbox">
+								<input type="checkbox" id="autosend" />
+								<label id="autosend-label" for="autosend">Automatically send the heartbeat once a minute</label>
+							</div>
+							<div class="form-group">
+								<button id="send-to-dev" type="button" class="button">Send to developer environment</button>
+								<div></div>
+								<p id="dev-response" class="text-secondary font-xsmall">only do this if you trust this website</p>
+							</div>
+						</details>
+					</div>
+				</div>
 					</div>
 				</div>
 			</div>

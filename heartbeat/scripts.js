@@ -1,9 +1,33 @@
 window.onload = function () {
-  document.getElementById('send-to-localhost').addEventListener('click', function (e) {
+  /* document.getElementById('send-to-localhost').addEventListener('click', function (e) {
     e.disabled = true
     submitPayload('http://localhost:8080/irc_entry/heartbeat', updatePreview(), function () {
       e.disabled = false
     })
+  }) */
+  document.getElementById('send-to-dev').addEventListener('click', function (e) {
+    console.log(e.target)
+    e.target.disabled = true
+    submitPayload('https://api-ircbd-dev.notprod.homeoffice.gov.uk/irc_entry/heartbeat', updatePreview(), function (statusCode) {
+      e.target.disabled = false
+      var response = document.getElementById('dev-response')
+      if (statusCode > 399) {
+        response.innerHTML = 'We received a <a href="https://tools.ietf.org/html/rfc7231">status code</a> of ' + statusCode + '.'
+        response.className = ' error-summary'
+      } else {
+        response.innerHTML = statusCode
+        response.className = 'valid'
+      }
+    })
+  })
+  var timer = null
+  document.getElementById('autosend').addEventListener('change', function (e) {
+    if (e.target.checked === true) {
+      timer = window.setInterval(autoSend, 1000)
+    } else {
+      window.clearInterval(timer)
+      document.getElementById('autosend-label').innerHTML = 'Automatically send the heartbeat once a minute'
+    }
   })
   getJSON('heartbeat.json', function (err, data) {
     if (err) return console.error('Cannot get heartbeat data!')
@@ -14,7 +38,6 @@ window.onload = function () {
 
     for (var j = 0; j < heartbeat.length; j++) {
       var humanReadable = heartbeat[j].replace('_', ' ')
-      console.log(heartbeat)
       humanReadable = humanReadable.charAt(0).toUpperCase() + humanReadable.slice(1)
       var fieldType = 'text'
       if (data.fields[heartbeat[j]]) {
@@ -54,6 +77,7 @@ var createField = function (caption, id, type) {
 
   var input = document.createElement('input')
   input.setAttribute('type', type || 'text')
+  if (type === 'number') input.setAttribute('step', 1)
   input.id = id
   input.className = 'form-control form-control-3-4'
   input.addEventListener('keyup', updatePreview)
@@ -64,7 +88,7 @@ var createField = function (caption, id, type) {
 
 var updatePreview = function () {
   var payload = {}
-  var inputs = document.getElementsByTagName('input')
+  var inputs = document.getElementById('payload').getElementsByTagName('input')
   for (var i = 0; i < inputs.length; i++) {
     if (inputs[i].value !== '') {
       payload[inputs[i].id] = inputs[i].value
@@ -114,8 +138,18 @@ var getSchemaErrors = function (data, cb) {
 var submitPayload = function (destination, payload, cb) {
   var xhr = new XMLHttpRequest()
   xhr.open('POST', destination, 'application/json')
+  xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
   xhr.send(JSON.stringify(payload))
   xhr.onloadend = function () {
-    cb()
+    cb(xhr.status)
+  }
+}
+
+var autoSendTick = 0
+var autoSend = function () {
+  var tick = 60 - (autoSendTick++ % 60)
+  document.getElementById('autosend-label').innerHTML = 'Automatically send the heartbeat in ' + tick + ' seconds (this doesn\'t actually do anything)'
+  if (tick === 60) {
+    document.getElementById('send-to-dev').click()
   }
 }
