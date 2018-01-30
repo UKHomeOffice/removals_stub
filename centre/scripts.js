@@ -65,10 +65,10 @@ var createField = function (caption, id, type) {
   input.setAttribute('type', type || 'text')
   if (type === 'number') input.setAttribute('step', 1)
   if (type === 'array') {
-	  var span = document.createElement('span')
-	  span.className = 'form-hint'
-	  span.innerHTML = '(This field has limited functionality)'
-	  label.appendChild(span)
+    var span = document.createElement('span')
+    span.className = 'form-hint'
+    span.innerHTML = '(This field has limited functionality)'
+    label.appendChild(span)
   }
   input.id = id
   input.className = 'form-control form-control-3-4'
@@ -85,16 +85,15 @@ var updatePreview = function () {
     if (inputs[i].value !== '') {
       payload[inputs[i].id] = inputs[i].value
 
-	console.log(inputs[i].value, inputs[i].attributes.type, 'x', inputs[i])
+      console.log(inputs[i].value, inputs[i].attributes.type, 'x', inputs[i])
       if (inputs[i].attributes.type.nodeValue /* FIXME */ === 'array') {
-		  console.log('AAAAA!')
+        console.log('AAAAA!')
         payload[inputs[i].id] = Array(payload[inputs[i].id])
       } else if (inputs[i].type === 'number') {
         payload[inputs[i].id] = parseInt(payload[inputs[i].id])
       }
     }
   }
-
 
   document.getElementById('preview').innerHTML = JSON.stringify(payload, null, 4)
   document.getElementById('preview').className = 'code'
