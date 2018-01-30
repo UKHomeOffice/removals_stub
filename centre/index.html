@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://codepen.io/edwardhorsford/pen/BLLAOQ.css">
+	<style>
+		html, body {
+			font-family: sans-serif;
+			max-width: 960px;
+			min-width: 100%;
+		}
+		h2 { margin-top: 1em; }
+		.valid { background-color: #28a197; display: inline-block; color: white; padding: 0.5em; font-size: 1.5em; margin-top: 1em; }
+		.grid-row { margin-bottom: 1em; }
+		.http-verb { background-color: #2e358b; display: inline-block; margin-right: 8px; padding: 2px 5px; color: white; line-height: 1.25; }
+		.endpoint { margin-bottom: 0.2em; }
+
+	</style>
+
+	<title>Centre creator</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tv4/1.3.0/tv4.min.js"></script>
+	<script src="scripts.js"></script>
+</head>
+<body>
+	<div id="content">
+		<div class="grid-row">
+			<div class="column-two-thirds">
+				<h1>Centre creator</h1>
+			</div>
+		</div>
+		<div class="grid-row">
+			<div class="column-one-third">
+				<form id="payload">
+					<div id="keys">
+					</div>
+				</form>
+			</div>
+			<div class="column-two-thirds">
+				<div class="grid-row">
+					<div class="column-full">
+						<p class="font-small">Some centre creation functionality isn't available with this tool.</p>
+						<p class="font-small">To add multiple CID names, use a different tool, such as cURL or Postman.</p>
+					</div>
+				</div>
+				<div class="grid-row">
+					<div class="column-full">
+						<p class="panel panel-border-narrow font-small">This tool can't perform validation when creating centres; it can't tell if you're making a mistake.</p>
+					</div>
+				</div>
+				<div class="grid-row">
+					<div class="column-full">
+						<h2 class="heading-small">Preview</h2>
+						<div class="endpoint">
+							<span class="http-verb">POST</span>
+							/centres
+						</div>
+						<pre id="preview" class="code"></pre>
+					</div>
+				</div>
+				<div class="grid-row">
+					<div class="column-full">
+						<!-- <button id="send-to-localhost" type="button" class="button">Send to localhost</button> -->
+						<details>
+							<summary>Send to test environment</summary>
+							<div class="form-group">
+								<label class="form-label" for="bearer-token">
+									Bearer token
+									<span class="font-xsmall form-hint">You don't need this if you're logged in another way</span>
+								</label>
+								<input class="form-control form-control-3-4" id="bearer-token" name="event-type" pattern="^[a-zA-Z0-9_\-\.]{1239}$" />
+							</div>
+							<p class="panel panel-border-narrow">
+								You may need to disable <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS</a> in order to use this feature.<br>
+								This is a terrible idea usually. Instructions: <a href="https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome">Chrome</a> &middot; <a href="https://stackoverflow.com/questions/17088609/disable-firefox-same-origin-policy">Firefox</a><br>
+							</p>
+							<p>You can't delete a centre using this tool: you'll have do it manually using something like cURL or Postman.</p>
+							<div class="form-group">
+								<button id="send-to-dev" type="button" class="button">Send to developer environment</button>
+								<div></div>
+								<p id="dev-response" class="text-secondary font-xsmall">only do this if you trust this website</p>
+							</div>
+						</details>
+					</div>
+				</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

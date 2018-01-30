@@ -1,0 +1,16 @@
+{
+	"fields": {
+		"name": "text",
+		"male_capacity": "number",
+		"male_cid_name": "array",
+		"female_capacity": "number",
+		"female_cid_name": "array"
+	},
+	"centre": [
+		"name",
+		"male_capacity",
+		"male_cid_name",
+		"female_capacity",
+		"female_cid_name"
+	]
+}
