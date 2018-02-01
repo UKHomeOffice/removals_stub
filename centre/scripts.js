@@ -104,7 +104,9 @@ var updatePreview = function () {
 var submitPayload = function (destination, payload, cb) {
   var xhr = new XMLHttpRequest()
   xhr.open('POST', destination, 'application/json')
-  xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
+  if (document.getElementById('bearer-token') !== '') {
+    xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
+  }
   xhr.setRequestHeader('Content-Type', 'application/json')
   xhr.send(JSON.stringify(payload))
   xhr.onloadend = function () {
