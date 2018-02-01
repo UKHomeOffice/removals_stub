@@ -1,6 +1,5 @@
 window.onload = function () {
   document.getElementById('send-to-dev').addEventListener('click', function (e) {
-    console.log(e.target)
     e.target.disabled = true
     submitPayload('https://api-ircbd-dev.notprod.homeoffice.gov.uk/centres', updatePreview(), function (statusCode) {
       e.target.disabled = false
@@ -85,9 +84,7 @@ var updatePreview = function () {
     if (inputs[i].value !== '') {
       payload[inputs[i].id] = inputs[i].value
 
-      console.log(inputs[i].value, inputs[i].attributes.type, 'x', inputs[i])
       if (inputs[i].attributes.type.nodeValue /* FIXME */ === 'array') {
-        console.log('AAAAA!')
         payload[inputs[i].id] = Array(payload[inputs[i].id])
       } else if (inputs[i].type === 'number') {
         payload[inputs[i].id] = parseInt(payload[inputs[i].id])
