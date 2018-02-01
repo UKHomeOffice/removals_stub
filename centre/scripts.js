@@ -7,7 +7,10 @@ window.onload = function () {
       if (statusCode > 399) {
         response.innerHTML = 'We received a <a href="https://tools.ietf.org/html/rfc7231">status code</a> of ' + statusCode + '.'
         response.className = ' error-summary'
-      } else {
+      } else if (statusCode === 0) {
+        response.innerHTML = 'Looks like your cross-origin request got blocked by your browser.'
+        response.className = ' error-summary'
+	  } else {
         response.innerHTML = statusCode
         response.className = 'valid'
       }
