@@ -10,7 +10,41 @@ window.onload = function () {
       } else if (statusCode === 0) {
         response.innerHTML = 'Looks like your cross-origin request got blocked by your browser.'
         response.className = ' error-summary'
-	  } else {
+      } else {
+        response.innerHTML = statusCode
+        response.className = 'valid'
+      }
+    })
+  })
+  document.getElementById('send-to-int').addEventListener('click', function (e) {
+    e.target.disabled = true
+    submitPayload('https://api-ircbd-int.notprod.homeoffice.gov.uk/centres', updatePreview(), function (statusCode) {
+      e.target.disabled = false
+      var response = document.getElementById('dev-response')
+      if (statusCode > 399) {
+        response.innerHTML = 'We received a <a href="https://tools.ietf.org/html/rfc7231">status code</a> of ' + statusCode + '.'
+        response.className = ' error-summary'
+      } else if (statusCode === 0) {
+        response.innerHTML = 'Looks like your cross-origin request got blocked by your browser.'
+        response.className = ' error-summary'
+      } else {
+        response.innerHTML = statusCode
+        response.className = 'valid'
+      }
+    })
+  })
+  document.getElementById('send-to-uat').addEventListener('click', function (e) {
+    e.target.disabled = true
+    submitPayload('https://api-ircbd-uat.notprod.homeoffice.gov.uk/centres', updatePreview(), function (statusCode) {
+      e.target.disabled = false
+      var response = document.getElementById('dev-response')
+      if (statusCode > 399) {
+        response.innerHTML = 'We received a <a href="https://tools.ietf.org/html/rfc7231">status code</a> of ' + statusCode + '.'
+        response.className = ' error-summary'
+      } else if (statusCode === 0) {
+        response.innerHTML = 'Looks like your cross-origin request got blocked by your browser.'
+        response.className = ' error-summary'
+      } else {
         response.innerHTML = statusCode
         response.className = 'valid'
       }

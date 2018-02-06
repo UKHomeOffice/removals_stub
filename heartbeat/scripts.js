@@ -23,13 +23,49 @@ window.onload = function () {
       }
     })
   })
+  document.getElementById('send-to-int').addEventListener('click', function (e) {
+    console.log(e.target)
+    e.target.disabled = true
+    submitPayload('https://api-ircbd-int.notprod.homeoffice.gov.uk/irc_entry/heartbeat', updatePreview(), function (statusCode) {
+      e.target.disabled = false
+      var response = document.getElementById('dev-response')
+      if (statusCode > 399) {
+        response.innerHTML = 'We received a <a href="https://tools.ietf.org/html/rfc7231">status code</a> of ' + statusCode + '.'
+        response.className = ' error-summary'
+      } else if (statusCode === 0) {
+        response.innerHTML = 'Looks like your cross-origin request got blocked by your browser.'
+        response.className = ' error-summary'
+      } else {
+        response.innerHTML = statusCode
+        response.className = 'valid'
+      }
+    })
+  })
+  document.getElementById('send-to-uat').addEventListener('click', function (e) {
+    console.log(e.target)
+    e.target.disabled = true
+    submitPayload('https://api-ircbd-uat.notprod.homeoffice.gov.uk/irc_entry/heartbeat', updatePreview(), function (statusCode) {
+      e.target.disabled = false
+      var response = document.getElementById('dev-response')
+      if (statusCode > 399) {
+        response.innerHTML = 'We received a <a href="https://tools.ietf.org/html/rfc7231">status code</a> of ' + statusCode + '.'
+        response.className = ' error-summary'
+      } else if (statusCode === 0) {
+        response.innerHTML = 'Looks like your cross-origin request got blocked by your browser.'
+        response.className = ' error-summary'
+      } else {
+        response.innerHTML = statusCode
+        response.className = 'valid'
+      }
+    })
+  })
   var timer = null
   document.getElementById('autosend').addEventListener('change', function (e) {
     if (e.target.checked === true) {
       timer = window.setInterval(autoSend, 1000)
     } else {
       window.clearInterval(timer)
-      document.getElementById('autosend-label').innerHTML = 'Automatically send the heartbeat once a minute'
+      document.getElementById('autosend-label').innerHTML = 'Automatically send the heartbeat to dev once a minute'
     }
   })
   getJSON('heartbeat.json', function (err, data) {
@@ -153,7 +189,7 @@ var submitPayload = function (destination, payload, cb) {
 var autoSendTick = 0
 var autoSend = function () {
   var tick = 60 - (autoSendTick++ % 60)
-  document.getElementById('autosend-label').innerHTML = 'Automatically send the heartbeat in ' + tick + ' seconds'
+  document.getElementById('autosend-label').innerHTML = 'Automatically send the heartbeat to dev in ' + tick + ' seconds'
   if (tick === 60) {
     document.getElementById('send-to-dev').click()
   }
