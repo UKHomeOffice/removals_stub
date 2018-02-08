@@ -148,6 +148,6 @@ var submitPayload = function (destination, payload, cb) {
   }
   xhr.send(JSON.stringify(payload))
   xhr.onloadend = function () {
-    cb()
+    cb(xhr.status)
   }
 }

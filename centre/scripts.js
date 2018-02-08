@@ -141,7 +141,7 @@ var submitPayload = function (destination, payload, cb) {
   if (document.getElementById('bearer-token') !== '') {
     xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
   }
-  xhr.setRequestHeader('Content-Type', 'application/json')
+  //xhr.setRequestHeader('Content-Type', 'application/json')
   xhr.send(JSON.stringify(payload))
   xhr.onloadend = function () {
     cb(xhr.status)
