@@ -68,10 +68,10 @@
 								<input class="form-control form-control-3-4" id="bearer-token" name="event-type" pattern="^[a-zA-Z0-9_\-\.]{1239}$" />
 							</div>
 							<p class="panel panel-border-narrow">
-								You may need to disable <a href="https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request">CORS preflight requests</a> in order to use this feature.<br>
-								It looks like this might not be possible in modern browsers!
+								You aren’t meant to be able to create centres via the browser.<br>
+								You may need to disable <a href="https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request">CORS preflight requests</a> in order for your browser to let you.<br>
+								It looks like this might not be possible in modern browsers; paste the JSON above into Postman or cURL.
 							</p>
-							<p>You can't delete a centre using this tool: you'll have do it manually using something like cURL or Postman.</p>
 							<div class="form-group">
 								<button id="send-to-dev" type="button" class="button">Send to dev</button>
 								<button id="send-to-int" type="button" class="button">Send to int</button>
