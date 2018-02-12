@@ -9,7 +9,8 @@
 		"nationality": "text",
 		"centre_to": "text",
 		"cid_id": "number",
-		"person_id": "number"
+		"person_id": "number",
+		"single_occupancy_person_id": "number"
 	},
 	"events": {
 		"out commission": [
@@ -17,7 +18,8 @@
 			"centre",
 			"bed_ref",
 			"reason",
-			"gender"
+			"gender",
+			"single_occupancy_person_id"
 		],
 		"in commission": [
 			"timestamp",
