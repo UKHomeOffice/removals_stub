@@ -1,7 +1,7 @@
 window.onload = function () {
   document.getElementById('send-to-dev').addEventListener('click', function (e) {
     e.target.disabled = true
-    submitPayload('https://api-ircbd-dev.notprod.homeoffice.gov.uk/centres', updatePreview(), function (statusCode) {
+    submitPayloadAsFormData('https://api-ircbd-dev.notprod.homeoffice.gov.uk/centres', updatePreview(), function (statusCode) {
       e.target.disabled = false
       var response = document.getElementById('dev-response')
       if (statusCode > 399) {
@@ -18,7 +18,7 @@ window.onload = function () {
   })
   document.getElementById('send-to-int').addEventListener('click', function (e) {
     e.target.disabled = true
-    submitPayload('https://api-ircbd-int.notprod.homeoffice.gov.uk/centres', updatePreview(), function (statusCode) {
+    submitPayloadAsFormData('https://api-ircbd-int.notprod.homeoffice.gov.uk/centres', updatePreview(), function (statusCode) {
       e.target.disabled = false
       var response = document.getElementById('dev-response')
       if (statusCode > 399) {
@@ -35,7 +35,7 @@ window.onload = function () {
   })
   document.getElementById('send-to-uat').addEventListener('click', function (e) {
     e.target.disabled = true
-    submitPayload('https://api-ircbd-uat.notprod.homeoffice.gov.uk/centres', updatePreview(), function (statusCode) {
+    submitPayloadAsFormData('https://api-ircbd-uat.notprod.homeoffice.gov.uk/centres', updatePreview(), function (statusCode) {
       e.target.disabled = false
       var response = document.getElementById('dev-response')
       if (statusCode > 399) {
@@ -138,12 +138,29 @@ var updatePreview = function () {
 var submitPayload = function (destination, payload, cb) {
   var xhr = new XMLHttpRequest()
   xhr.open('POST', destination, 'application/json')
-  if (document.getElementById('bearer-token') !== '') {
+  /*if (document.getElementById('bearer-token') !== '') {
     xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
-  }
-  // xhr.setRequestHeader('Content-Type', 'application/json')
+  }*/
+  xhr.setRequestHeader('Content-Type', 'application/json')
   xhr.send(JSON.stringify(payload))
   xhr.onloadend = function () {
     cb(xhr.status)
   }
+}
+
+var submitPayloadAsFormData = function (destination, jsonPayload, cb) {
+	var formData = new FormData()
+	var keys = Object.keys(jsonPayload)
+	for (var i = 0; i > keys.length; i++) {
+	  formData.append(keys[i], jsonPayload[keys[i]])
+	}
+	var xhr = new XMLHttpRequest()
+	  /*if (document.getElementById('bearer-token') !== '') {
+		xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
+	  }*/
+	xhr.open('POST', destination)
+	xhr.send(formData)
+	xhr.onloadend = function () {
+		cb(xhr.status)
+	}
 }
