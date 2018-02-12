@@ -123,11 +123,13 @@ var updatePreview = function () {
         }
       }
       errorBox.className = 'error-summary'
-      errorBox.innerHTML = '<h2 class="heading-small error-summary-heading">' + headline + '</h2><details><summary>Sub errors</summary><ul class="error-summary-list">' + subErrs.join('') + '</ul>'
+      errorBox.innerHTML = '<h2 class="heading-small error-summary-heading">' + headline + '</h2><details><summary>View possible problems</summary><ul class="error-summary-list">' + subErrs.join('') + '</ul>'
       errorBox.innerHTML = errorBox.innerHTML += '</details><details><summary>Full error report</summary><pre class="code">' + JSON.stringify(error, null, 4) + '</details></p>'
+	  document.getElementById('payload-error').className = 'error'
     } else {
       errorBox.className = 'valid'
       errorBox.innerHTML = 'Passes validation'
+	  document.getElementById('payload-error').className = 'visually-hidden'
     }
   })
   return payload
@@ -143,9 +145,9 @@ var getSchemaErrors = function (data, cb) {
 var submitPayload = function (destination, payload, cb) {
   var xhr = new XMLHttpRequest()
   xhr.open('POST', destination, 'application/json')
-  if (document.getElementById('bearer-token') !== '') {
+  /*if (document.getElementById('bearer-token') !== '') {
     xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
-  }
+  }*/
   xhr.setRequestHeader('Content-Type', 'application/json')
   xhr.send(JSON.stringify(payload))
   xhr.onloadend = function () {
