@@ -135,32 +135,19 @@ var updatePreview = function () {
   return payload
 }
 
-var submitPayload = function (destination, payload, cb) {
+var submitPayloadAsFormData = function (destination, jsonPayload, cb) {
+  var formData = new FormData()
+  var keys = Object.keys(jsonPayload)
+  for (var i = 0; i > keys.length; i++) {
+    formData.append(keys[i], jsonPayload[keys[i]])
+  }
   var xhr = new XMLHttpRequest()
-  xhr.open('POST', destination, 'application/json')
-  /*if (document.getElementById('bearer-token') !== '') {
-    xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
-  }*/
-  xhr.setRequestHeader('Content-Type', 'application/json')
-  xhr.send(JSON.stringify(payload))
+  /* if (document.getElementById('bearer-token') !== '') {
+xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
+ } */
+  xhr.open('POST', destination)
+  xhr.send(formData)
   xhr.onloadend = function () {
     cb(xhr.status)
   }
-}
-
-var submitPayloadAsFormData = function (destination, jsonPayload, cb) {
-	var formData = new FormData()
-	var keys = Object.keys(jsonPayload)
-	for (var i = 0; i > keys.length; i++) {
-	  formData.append(keys[i], jsonPayload[keys[i]])
-	}
-	var xhr = new XMLHttpRequest()
-	  /*if (document.getElementById('bearer-token') !== '') {
-		xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
-	  }*/
-	xhr.open('POST', destination)
-	xhr.send(formData)
-	xhr.onloadend = function () {
-		cb(xhr.status)
-	}
 }
