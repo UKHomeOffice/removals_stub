@@ -152,38 +152,38 @@ var submitPayload = function (destination, payload, cb) {
   xhr.setRequestHeader('Content-Type', 'application/json')
   xhr.send(JSON.stringify(payload))
   xhr.onloadend = function () {
-	displayResponse(xhr)
+    displayResponse(xhr)
     cb(xhr.status)
   }
 }
 
 var displayResponse = function (xhr) {
-	var statusCode = xhr.status
-	var response = document.getElementById('dev-response')
-	if (statusCode > 399) {
-		response.innerHTML = 'We received an error code of <a href="https://httpstatuses.com/' + xhr.status + '">' + xhr.status + '&nbsp;(' + xhr.statusText + ')</a>.'
-		response.className = 'error-summary'
-	} else if (statusCode === 0) {
-		response.innerHTML = 'Your browser refused to send that request to the API. (Cross-origin response sharing issue?)'
-		response.className = 'error-summary'
-	} else {
-		response.innerHTML = xhr.status + '&nbsp;' + xhr.statusText
-		response.className = 'valid'
-	}
-	if (xhr.response !== null && xhr.response !== '') {
-		var text = document.createTextNode(xhr.response)
-		var pre = document.createElement('pre')
-		pre.className = 'code'
-		pre.appendChild(text)
-		// if long response, collapse it
-		if (xhr.response.indexOf('\n') !== -1) {
-			var details = document.createElement('details')
-			details.innerHTML = '<summary>Response</summary>'
-			details.appendChild(pre)
-			response.appendChild(details)
-		} else {
-			response.appendChild(pre)
-		}
-		console.log('XHR', xhr)
-	}
+  var statusCode = xhr.status
+  var response = document.getElementById('dev-response')
+  if (statusCode > 399) {
+    response.innerHTML = 'We received an error code of <a href="https://httpstatuses.com/' + xhr.status + '">' + xhr.status + '&nbsp;(' + xhr.statusText + ')</a>.'
+    response.className = 'error-summary'
+  } else if (statusCode === 0) {
+    response.innerHTML = 'Your browser refused to send that request to the API. (Cross-origin response sharing issue?)'
+    response.className = 'error-summary'
+  } else {
+    response.innerHTML = xhr.status + '&nbsp;' + xhr.statusText
+    response.className = 'valid'
+  }
+  if (xhr.response !== null && xhr.response !== '') {
+    var text = document.createTextNode(xhr.response)
+    var pre = document.createElement('pre')
+    pre.className = 'code'
+    pre.appendChild(text)
+    // if long response, collapse it
+    if (xhr.response.indexOf('\n') !== -1) {
+      var details = document.createElement('details')
+      details.innerHTML = '<summary>Response</summary>'
+      details.appendChild(pre)
+      response.appendChild(details)
+    } else {
+      response.appendChild(pre)
+    }
+    console.log('XHR', xhr)
+  }
 }
