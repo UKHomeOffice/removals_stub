@@ -142,10 +142,10 @@ var submitPayloadAsFormData = function (destination, jsonPayload, cb) {
     formData.append(keys[i], jsonPayload[keys[i]])
   }
   var xhr = new XMLHttpRequest()
-  /* if (document.getElementById('bearer-token') !== '') {
-xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
- } */
   xhr.open('POST', destination)
+  if (document.getElementById('bearer-token') !== '') {
+    xhr.setRequestHeader('Authorization', 'Bearer ' + document.getElementById('bearer-token').value)
+  }
   xhr.send(formData)
   xhr.onloadend = function () {
     cb(xhr.status)
