@@ -153,7 +153,6 @@ var submitPayload = function (destination, payload, cb) {
   xhr.send(JSON.stringify(payload))
   xhr.onloadend = function () {
     displayResponse(xhr)
-	console.log(xhr)
     cb(xhr.status)
   }
 }
@@ -185,6 +184,5 @@ var displayResponse = function (xhr) {
     } else {
       response.appendChild(pre)
     }
-    console.log('XHR', xhr)
   }
 }

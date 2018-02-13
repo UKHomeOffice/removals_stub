@@ -6,7 +6,6 @@ window.onload = function () {
     })
   }) */
   document.getElementById('send-to-dev').addEventListener('click', function (e) {
-    console.log(e.target)
     e.target.disabled = true
     submitPayload('https://api-ircbd-dev.notprod.homeoffice.gov.uk/irc_entry/heartbeat', updatePreview(), function (statusCode) {
       e.target.disabled = false
@@ -24,7 +23,6 @@ window.onload = function () {
     })
   })
   document.getElementById('send-to-int').addEventListener('click', function (e) {
-    console.log(e.target)
     e.target.disabled = true
     submitPayload('https://api-ircbd-int.notprod.homeoffice.gov.uk/irc_entry/heartbeat', updatePreview(), function (statusCode) {
       e.target.disabled = false
@@ -42,7 +40,6 @@ window.onload = function () {
     })
   })
   document.getElementById('send-to-uat').addEventListener('click', function (e) {
-    console.log(e.target)
     e.target.disabled = true
     submitPayload('https://api-ircbd-uat.notprod.homeoffice.gov.uk/irc_entry/heartbeat', updatePreview(), function (statusCode) {
       e.target.disabled = false
