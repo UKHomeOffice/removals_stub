@@ -41,8 +41,9 @@ window.onload = function () {
 
       var keys = data.events[currEvent]
       for (var j = 0; j < keys.length; j++) {
-        var humanReadable = keys[j].replace('_', ' ')
+        var humanReadable = keys[j].replace(/_/g, ' ')
         humanReadable = humanReadable.replace('cid', 'CID')
+        humanReadable = humanReadable.replace('ref', 'reference')
         humanReadable = humanReadable.replace('id', 'identifier')
         humanReadable = humanReadable.charAt(0).toUpperCase() + humanReadable.slice(1)
         var fieldType = 'text'
