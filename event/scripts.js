@@ -153,6 +153,7 @@ var submitPayload = function (destination, payload, cb) {
   xhr.send(JSON.stringify(payload))
   xhr.onloadend = function () {
     displayResponse(xhr)
+	console.log(xhr)
     cb(xhr.status)
   }
 }
@@ -164,7 +165,7 @@ var displayResponse = function (xhr) {
     response.innerHTML = 'We received an error code of <a href="https://httpstatuses.com/' + xhr.status + '">' + xhr.status + '&nbsp;(' + xhr.statusText + ')</a>.'
     response.className = 'error-summary'
   } else if (statusCode === 0) {
-    response.innerHTML = 'Your browser refused to send that request to the API. (Cross-origin response sharing issue?)'
+    response.innerHTML = 'Problem sending to the API. (Cross-origin response sharing issue?)'
     response.className = 'error-summary'
   } else {
     response.innerHTML = xhr.status + '&nbsp;' + xhr.statusText
