@@ -68,14 +68,14 @@
 								<input class="form-control form-control-3-4" id="bearer-token" name="event-type" pattern="^[a-zA-Z0-9_\-\.]{1239}$" />
 							</div>
 							<p class="panel panel-border-narrow">
-								You aren’t meant to be able to create centres via the browser.<br>
-								You may need to disable <a href="https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request">CORS preflight requests</a> in order for your browser to let you.<br>
-								It looks like this might not be possible in modern browsers; paste the JSON above into Postman or cURL.
+								You can't authenticate via Keycloak using this browser tool, so this tool only works on unauthenticated routes.
+								This means you can only create centres on servers not protected by Keycloak.
 							</p>
 							<div class="form-group">
-								<button id="send-to-dev" type="button" class="button">Send to dev</button>
-								<button id="send-to-int" type="button" class="button">Send to int</button>
-								<button id="send-to-uat" type="button" class="button">Send to uat</button>
+								<button id="send-to-localhost" type="button" class="button">Send to ::1</button>
+								<button id="send-to-dev" type="button" class="button disabled">Send to dev</button>
+								<button id="send-to-int" type="button" class="button disabled">Send to int</button>
+								<button id="send-to-uat" type="button" class="button disabled">Send to uat</button>
 							</div>
 							<p id="dev-response" class="text-secondary font-xsmall"></p>
 						</details>
