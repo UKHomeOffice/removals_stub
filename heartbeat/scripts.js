@@ -1,10 +1,10 @@
 window.onload = function () {
-  /* document.getElementById('send-to-localhost').addEventListener('click', function (e) {
+  document.getElementById('send-to-localhost').addEventListener('click', function (e) {
     e.disabled = true
     submitPayload('http://localhost:8080/irc_entry/heartbeat', updatePreview(), function () {
       e.disabled = false
     })
-  }) */
+  })
   document.getElementById('send-to-dev').addEventListener('click', function (e) {
     e.target.disabled = true
     submitPayload('https://api-ircbd-dev.notprod.homeoffice.gov.uk/irc_entry/heartbeat', updatePreview(), function (statusCode) {
