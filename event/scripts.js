@@ -23,6 +23,12 @@ window.onload = function () {
       e.disabled = false
     })
   })
+  document.getElementById('send-to-acp').addEventListener('click', function (e) {
+    e.disabled = true
+    submitPayload('https://api.dev.ircbd.homeoffice.gov.uk/irc_entry/event', updatePreview(), function () {
+      e.disabled = false
+    })
+  })
   getJSON('events.json', function (err, data) {
     if (err) return console.error('Cannot get events data!')
     const events = Object.keys(data.events)
